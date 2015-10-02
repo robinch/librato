@@ -24,7 +24,7 @@ def options(options = {})
       options[:dir] = dir
     end
 
-    o.on('-s', '--space SPACE', 'Space name' do |space|
+    o.on('-s', '--space SPACE', 'Space name') do |space|
       options[:spaces] ||= []
       options[:spaces] << space
     end
