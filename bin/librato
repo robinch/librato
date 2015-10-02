@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+$: << File.expand_path('../../lib', __FILE__)
+
+require 'librato'
+require 'optparse'
+
+def usage(msg)
+  puts msg
+  puts 'Usage: librato [fetch|push] ACCOUNT'
+  exit
+end
+
+action, account = ARGV.shift, ARGV.shift
+usage("Unknown action: #{action}") if !['fetch', 'push'].include?(action) || account.nil?
+
+def options(options = {})
+  OptionParser.new do |o|
+    o.on('-c', '--config FILE', 'Config file (default: ./.librato.yml)') do |config|
+      options[:config] = config
+    end
+
+    o.on('-d', '--dir DIR', 'Data directory (default: ./var/librato)') do |dir|
+      options[:dir] = dir
+    end
+
+    o.on('-s', '--space SPACE', 'Space name' do |space|
+      options[:spaces] ||= []
+      options[:spaces] << space
+    end
+  end.parse!(ARGV)
+
+  options
+end
+
+librato = Librato::Cli.new(account, options)
+librato.send(action)
