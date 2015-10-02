@@ -8,7 +8,7 @@ module Librato
     require 'librato/cli/pull'
     require 'librato/cli/push'
 
-    def fetch
+    def pull
       spaces.each do |space|
         Pull.new(client, account, space, config).run
       end

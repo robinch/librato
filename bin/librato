@@ -12,7 +12,7 @@ def usage(msg)
 end
 
 action, account = ARGV.shift, ARGV.shift
-usage("Unknown action: #{action}") if !['fetch', 'push'].include?(action) || account.nil?
+usage("Unknown action: #{action}") if !['pull', 'push'].include?(action) || account.nil?
 
 def options(options = {})
   OptionParser.new do |o|
