@@ -32,7 +32,7 @@ module Librato
 
       def path(name)
         name = name.gsub(/[\W]+/, ' ').downcase.strip.gsub(' ', '_')
-        num  = order.index(name) || 0
+        num  = order.index { |n| name.include?(n) } || 0
         path = "#{dir}/#{num.to_s.rjust(2, '0')}_chart_#{name}.json"
       end
 

@@ -7,13 +7,14 @@ module Librato
     end
 
     def spaces
-      spaces = options[:spaces] || data['spaces'] || []
-      spaces.map { |space| space.is_a?(Hash) ? space : { 'name' => space } }
+      (options[:spaces] || data['spaces'] || []).map do |space|
+        space.is_a?(Hash) ? space : { 'name' => space }
+      end
     end
 
-    def account(name)
-      env(name).merge(accounts[name] || {}).tap do |account|
-        validate(account, name)
+    def accounts
+      (data['accounts'] || {}).map do |name, account|
+        env(name).merge(account).tap { |account| validate(account, name) }
       end
     end
 
@@ -31,10 +32,6 @@ module Librato
 
       def path
         options[:config] || '.librato.yml'
-      end
-
-      def accounts
-        data['accounts'] || {}
       end
 
       def env(name)
