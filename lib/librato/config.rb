@@ -12,9 +12,15 @@ module Librato
       end
     end
 
+    def account(name)
+      accounts.find { |account| account['name'] == name }
+    end
+
     def accounts
       (data['accounts'] || {}).map do |name, account|
-        env(name).merge(account).tap { |account| validate(account, name) }
+        env(name).merge(account).merge('name' => name).tap do |account|
+          validate(account, name)
+        end
       end
     end
 
