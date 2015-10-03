@@ -1,6 +1,11 @@
 # Librato Sync
 
-Minimalistic library that does two things:
+Minimalistic library that might be a temporary, throw-away project.
+
+It has been published on RubyGems as `librato` since that gem name was unused.
+Consider this friendly-squatting, I'll hand it over to Librato on request.
+
+It does two things:
 
 * Pull a space from a Librato account, and store JSON data in a local
   directory.
