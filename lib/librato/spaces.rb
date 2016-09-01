@@ -31,7 +31,7 @@ module Librato
       end
 
       def normalize(data)
-        data.merge('name' => data['name'].sub(/\s*\(#{account}\)\s*/, ''))
+        data.merge('name' => data['name'].to_s.sub(/\s*\(#{account}\)\s*/, ''))
       end
   end
 end
